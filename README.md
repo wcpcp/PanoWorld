@@ -62,13 +62,11 @@ We are preparing the public release. Code, checkpoints, datasets, and benchmark 
 </p>
 
 <p align="center">
-  <a href="./docs/assets/demo_vln1.mp4">
-    <img src="./docs/assets/demo_vln1_preview.png" alt="Navigation transfer demo preview" width="82%">
-  </a>
+  <img src="./docs/assets/demo_vln1_preview.gif" alt="Navigation transfer demo preview" width="82%">
 </p>
 
 <p align="center">
-  <em>Navigation transfer example: full-surround ERP observations expose global layout cues and reduce blind spots compared with narrow RGB perspective-view navigation. Click the preview to open the MP4 demo.</em>
+  <em>Navigation transfer example: full-surround ERP observations expose global layout cues and reduce blind spots compared with narrow RGB perspective-view navigation. High-quality MP4: <a href="./docs/assets/demo_vln1.mp4">demo_vln1.mp4</a>.</em>
 </p>
 
 ## News
