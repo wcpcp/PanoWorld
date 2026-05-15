@@ -61,6 +61,14 @@ We are preparing the public release. Code, checkpoints, datasets, and benchmark 
   <em>H*Bench examples show how pano-native reasoning avoids fragmented perspective-view search and supports holistic object and position sensing.</em>
 </p>
 
+<p align="center">
+  <video src="./docs/assets/demo_vln1.mp4" controls muted width="82%"></video>
+</p>
+
+<p align="center">
+  <em>Navigation transfer example: full-surround ERP observations expose global layout cues and reduce blind spots compared with narrow RGB perspective-view navigation.</em>
+</p>
+
 ## News
 
 - **2026-05**: Project page, arXiv PDF, and Hugging Face paper page are available.
