@@ -29,11 +29,10 @@
           Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>,
           Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
           <span class="hero__affiliations">
-            <br />
-            <sup>1</sup>Zhejiang University &nbsp;&nbsp;
-            <sup>2</sup>University of California, San Diego &nbsp;&nbsp;
-            <sup>3</sup>University of California, Irvine &nbsp;&nbsp;
-            <sup>4</sup>The University of Hong Kong
+            <span><sup>1</sup>Zhejiang University</span>
+            <span><sup>2</sup>University of California, San Diego</span>
+            <span><sup>3</sup>University of California, Irvine</span>
+            <span><sup>4</sup>The University of Hong Kong</span>
           </span>
         </p>
         <div class="hero__actions">
@@ -54,17 +53,20 @@
           <figure class="figure-card figure-card--hero">
             <img src="./assets/teaser.png" alt="PanoWorld teaser figure" />
             <figcaption>
-              Existing MLLMs reason over fragmented local views. PanoWorld
-              studies <strong>pano-native supersensing</strong>: learning to
-              understand a full 360° ERP panorama as a continuous,
-              observer-centered spatial world.
+              Existing MLLMs reason over fragmented local views, making it
+              difficult to associate spatial cues in 360°. We introduce
+              <strong>pano-native supersensing</strong>, which teaches VLMs to
+              perceive and reason directly over 360° panoramas, providing a
+              unified full-surround representation for downstream tasks such as
+              human-centric visual search, omnidirectional 3D spatial reasoning,
+              and panoramic navigation.
             </figcaption>
           </figure>
         </div>
       </section>
 
       <section class="section">
-        <div class="container container--narrow">
+        <div class="container container--narrow abstract-copy">
           <h2>Abstract</h2>
           <p class="lead">
             Multimodal large language models still struggle with spatial
@@ -99,35 +101,38 @@
           <h2>What This Project Contributes</h2>
           <div class="grid grid--cards">
             <article class="card">
-              <h3>Capability Taxonomy</h3>
+              <h3>Pano-Native Ability Foundation</h3>
               <p>
-                A structured decomposition of pano-native learning into
-                spherical localization, relative direction reasoning, viewpoint
-                transformation, 3D spatial relations, and global scene topology.
+                We formalize the core abilities required for panoramic
+                understanding: semantic anchoring, spherical localization,
+                reference-frame transformation, and depth-aware 3D spatial
+                reasoning over observer-centered ERP space.
               </p>
             </article>
             <article class="card">
-              <h3>570K Panorama Resource</h3>
+              <h3>Verifiable 570K ERP Data Engine</h3>
               <p>
-                A metadata-driven pipeline that constructs large-scale
-                geometry-aware and language-grounded ERP supervision from
-                mixed-source panorama data.
+                A metadata-driven construction pipeline converts mixed-source
+                panoramas into geometry-aware, language-grounded, and
+                depth-aware supervision through geometric and semantic
+                verification.
               </p>
             </article>
             <article class="card">
-              <h3>PanoSpace-Bench</h3>
+              <h3>PanoSpace-Bench Diagnostic Suite</h3>
               <p>
-                A diagnostic benchmark that evaluates ERP-native spatial
-                reasoning beyond standard VQA accuracy, including localization,
-                seam awareness, and 3D spatial understanding.
+                A benchmark designed for ERP-native spatial reasoning,
+                measuring spherical grounding, reference-frame transformation,
+                3D relations, seam continuity, and topology-sensitive
+                understanding.
               </p>
             </article>
             <article class="card">
-              <h3>Spherical Spatial Cross-Attention</h3>
+              <h3>PanoWorld Geometry-Aware MLLM</h3>
               <p>
-                A pano-aware architectural adaptation that injects spherical
-                geometry directly into the visual stream for geometry-consistent
-                panoramic reasoning.
+                PanoWorld injects spherical geometry into the visual stream via
+                Spherical Spatial Cross-Attention, enabling pano-aware reasoning
+                while preserving the pretrained vision-language backbone.
               </p>
             </article>
           </div>
@@ -149,9 +154,13 @@
           <figure class="figure-card">
             <img src="./assets/dataset.png" alt="PanoWorld dataset pipeline" />
             <figcaption>
-              Verifiable metadata construction pipeline used in the paper:
-              mixed-source ERP panoramas are converted into geometry-aware,
-              depth-aware, and language-grounded supervision.
+              Verifiable metadata construction pipeline. We collect mixed-source
+              ERP panoramas, perform perspective-view detection followed by ERP
+              reprojection and cross-view geometric verification, and enrich
+              verified entities with semantic metadata through MLLM annotation
+              and description-guided referring re-detection. Depth cues are then
+              associated with each entity to build a structured metadata graph,
+              from which both training data and PanoSpace-Bench are derived.
             </figcaption>
           </figure>
 
@@ -211,19 +220,23 @@
         <div class="container">
           <div class="section-heading">
             <div>
-              <h2>Method Overview</h2>
+              <h2>PanoWorld Architecture</h2>
               <p>
-                PanoWorld augments a panoramic MLLM with spherical geometry and
-                pano-native supervision instead of relying on fragmented
-                perspective crops.
+                PanoWorld adapts Qwen3.5-VL into a pano-aware MLLM by injecting
+                spherical geometry into the visual stream before deep visual
+                encoding.
               </p>
             </div>
           </div>
           <figure class="figure-card">
             <img src="./assets/architecture.png" alt="PanoWorld architecture" />
             <figcaption>
-              The model introduces a spherical spatial cross-attention mechanism
-              to align ERP visual tokens with the underlying 360° geometry.
+              The architecture of PanoWorld. After patch embedding, visual
+              tokens query spherical spatial tokens derived from ERP patch
+              centers, producing a geometry-aware signal that is fused through a
+              gated residual update. The enhanced tokens are then fed into the
+              remaining pretrained visual encoder, enabling pano-aware spatial
+              reasoning while preserving the original backbone.
             </figcaption>
           </figure>
         </div>
@@ -496,22 +509,28 @@
             <figure class="figure-card visual-card">
               <img src="./assets/demo_3d_relation.png" alt="PanoWorld 3D relation reasoning result" />
               <figcaption>
-                3D relation reasoning: global panorama context provides cues for
-                distance, ordering, and spatial relation judgments.
+                Representative PanoSpace-Bench 3D relation case. The model must
+                reason over an observer-centered ERP panorama to compare
+                target-object positions and infer relative depth-aware spatial
+                relations rather than relying on a cropped local view.
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
               <img src="./assets/demo_camera_rotation.png" alt="PanoWorld camera rotation reasoning result" />
               <figcaption>
-                Viewpoint transformation: the model reasons about how targets
-                move when the observer-facing direction changes.
+                Camera-rotation reasoning case. Given a hypothetical change in
+                observer orientation, PanoWorld predicts where the target would
+                appear in the transformed reference frame, testing
+                observer-centered spherical reasoning.
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
               <img src="./assets/demo_object_reorientation.png" alt="PanoWorld object reorientation result" />
               <figcaption>
-                Object reorientation: spherical cues help preserve consistent
-                target orientation across ERP distortions.
+                Object-conditioned reorientation case. The model tracks how a
+                target person's direction changes under a new observer-facing
+                frame, requiring consistent spatial grounding across ERP
+                distortion and full-surround context.
               </figcaption>
             </figure>
           </div>
@@ -529,9 +548,10 @@
             <figure class="figure-card visual-card">
               <img src="./assets/demo_hstar_comparison.png" alt="Perspective-view search compared with pano-native H star reasoning" />
               <figcaption>
-                H*Bench comparison: perspective-view iterative search is
-                fragmented and may miss the target, while direct ERP input
-                enables holistic reasoning in one step.
+                Case comparison on H*Bench. Perspective-view iterative search is
+                inefficient and may fail due to fragmented local observations,
+                whereas direct ERP input enables holistic reasoning and correct
+                prediction in one step.
               </figcaption>
             </figure>
           </div>
@@ -539,15 +559,18 @@
             <figure class="figure-card visual-card">
               <img src="./assets/demo_hps_case1.png" alt="PanoWorld H star holistic sensing result" />
               <figcaption>
-                H*Bench example: holistic object sensing benefits from modeling
-                the panorama as one observer-centered environment.
+                Human-centric visual search example. PanoWorld directly reasons
+                over the full ERP panorama to infer the next movement direction,
+                supporting practical 360° search without decomposing the scene
+                into fragmented local views.
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
               <img src="./assets/demo_hps_case2.png" alt="PanoWorld H star position sensing result" />
               <figcaption>
-                H*Bench example: spherical position cues help resolve target
-                direction and pose under wide-field distortion.
+                Human-centric visual search example. Full-surround perception
+                lets the model use global layout and target-position cues to
+                select the next action from a single panoramic observation.
               </figcaption>
             </figure>
           </div>
@@ -567,15 +590,20 @@
             <figure class="figure-card visual-card">
               <video controls muted playsinline preload="metadata" src="./assets/demo_vln1.mp4"></video>
               <figcaption>
-                Navigation demo 1: the agent follows language instructions with
-                panoramic observations.
+                Panoramic navigation demo. The agent observes the full
+                surrounding scene and the top-down trajectory simultaneously,
+                allowing it to ground language instructions with fewer
+                blind-spot ambiguities than narrow RGB perspective-view
+                navigation.
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
               <video controls muted playsinline preload="metadata" src="./assets/demo_vln2.mp4"></video>
               <figcaption>
-                Navigation demo 2: full-surround cues improve long-horizon
-                spatial grounding.
+                Panoramic navigation demo. Full-surround ERP observations expose
+                long-range layout cues and route alternatives in a single view,
+                supporting more efficient instruction following in continuous
+                environments.
               </figcaption>
             </figure>
           </div>
