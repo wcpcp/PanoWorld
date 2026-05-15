@@ -16,6 +16,13 @@ This `docs/` directory is a GitHub Pages-ready project page draft for:
 - `assets/case_3d_relation.png`
 - `assets/case_camera_rotation.png`
 - `assets/case_object_reorientation.png`
+- `assets/demo_3d_relation.png`
+- `assets/demo_camera_rotation.png`
+- `assets/demo_object_reorientation.png`
+- `assets/demo_hps_case1.png`
+- `assets/demo_hps_case2.png`
+- `assets/demo_vln1.mp4`
+- `assets/demo_vln2.mp4`
 - `assets/panoworld_paper.pdf`
 
 ## GitHub Pages

@@ -485,15 +485,24 @@
         <div class="container">
           <div class="section-heading">
             <div>
-              <h2>Qualitative Results</h2>
+              <h2>Task Demos and Visual Results</h2>
               <p>
-                Visual examples highlight how pano-native learning helps the
-                model localize objects, reason over full-surround layouts, and
-                preserve global spatial consistency.
+                Qualitative examples across PanoSpace-Bench, H*Bench, and
+                navigation show how pano-native learning supports localization,
+                holistic sensing, and embodied transfer.
               </p>
             </div>
           </div>
 
+          <div class="demo-block">
+            <div class="demo-block__heading">
+              <h3>PanoSpace-Bench Spatial Reasoning</h3>
+              <p>
+                The benchmark probes spherical localization, 3D spatial
+                relations, viewpoint transformation, and object reorientation.
+              </p>
+            </div>
+          </div>
           <div class="visual-grid">
             <figure class="figure-card visual-card">
               <img src="./assets/case_localization.png" alt="PanoWorld localization result" />
@@ -510,38 +519,76 @@
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
-              <img src="./assets/case_hstar_1.png" alt="PanoWorld H star holistic sensing result" />
-              <figcaption>
-                H*Bench example: holistic object sensing benefits from modeling
-                the panorama as one observer-centered environment.
-              </figcaption>
-            </figure>
-            <figure class="figure-card visual-card">
-              <img src="./assets/case_hstar_2.png" alt="PanoWorld H star position sensing result" />
-              <figcaption>
-                H*Bench example: spherical position cues help resolve target
-                direction and pose under wide-field distortion.
-              </figcaption>
-            </figure>
-            <figure class="figure-card visual-card">
-              <img src="./assets/case_3d_relation.png" alt="PanoWorld 3D relation reasoning result" />
+              <img src="./assets/demo_3d_relation.png" alt="PanoWorld 3D relation reasoning result" />
               <figcaption>
                 3D relation reasoning: global panorama context provides cues for
                 distance, ordering, and spatial relation judgments.
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
-              <img src="./assets/case_camera_rotation.png" alt="PanoWorld camera rotation reasoning result" />
+              <img src="./assets/demo_camera_rotation.png" alt="PanoWorld camera rotation reasoning result" />
               <figcaption>
                 Viewpoint transformation: the model reasons about how targets
                 move when the observer-facing direction changes.
               </figcaption>
             </figure>
             <figure class="figure-card visual-card">
-              <img src="./assets/case_object_reorientation.png" alt="PanoWorld object reorientation result" />
+              <img src="./assets/demo_object_reorientation.png" alt="PanoWorld object reorientation result" />
               <figcaption>
                 Object reorientation: spherical cues help preserve consistent
                 target orientation across ERP distortions.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="demo-block">
+            <div class="demo-block__heading">
+              <h3>H*Bench Holistic Sensing</h3>
+              <p>
+                H*Bench examples test holistic object sensing and holistic
+                position sensing on panoramic scenes.
+              </p>
+            </div>
+          </div>
+          <div class="visual-grid">
+            <figure class="figure-card visual-card">
+              <img src="./assets/demo_hps_case1.png" alt="PanoWorld H star holistic sensing result" />
+              <figcaption>
+                H*Bench example: holistic object sensing benefits from modeling
+                the panorama as one observer-centered environment.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/demo_hps_case2.png" alt="PanoWorld H star position sensing result" />
+              <figcaption>
+                H*Bench example: spherical position cues help resolve target
+                direction and pose under wide-field distortion.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="demo-block">
+            <div class="demo-block__heading">
+              <h3>Navigation Transfer</h3>
+              <p>
+                VLN demos illustrate how pano-native representations transfer
+                to embodied instruction following.
+              </p>
+            </div>
+          </div>
+          <div class="visual-grid">
+            <figure class="figure-card visual-card">
+              <video controls muted playsinline preload="metadata" src="./assets/demo_vln1.mp4"></video>
+              <figcaption>
+                Navigation demo 1: the agent follows language instructions with
+                panoramic observations.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <video controls muted playsinline preload="metadata" src="./assets/demo_vln2.mp4"></video>
+              <figcaption>
+                Navigation demo 2: full-surround cues improve long-horizon
+                spatial grounding.
               </figcaption>
             </figure>
           </div>

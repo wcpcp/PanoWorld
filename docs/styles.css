@@ -324,13 +324,38 @@ thead th {
   gap: 18px;
 }
 
+.demo-block {
+  margin: 28px 0 14px;
+}
+
+.demo-block:first-of-type {
+  margin-top: 0;
+}
+
+.demo-block__heading {
+  max-width: 760px;
+}
+
+.demo-block__heading h3 {
+  margin: 0 0 8px;
+  font-size: 1.24rem;
+}
+
+.demo-block__heading p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .visual-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
 
-.visual-card img {
+.visual-card img,
+.visual-card video {
+  display: block;
+  width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
