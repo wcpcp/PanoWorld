@@ -17,46 +17,66 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <nav class="side-nav" aria-label="Page navigation">
+      <a class="side-nav__brand" href="#">
+        <span>PW</span>
+        <strong>PanoWorld</strong>
+      </a>
+      <a href="#overview">Overview</a>
+      <a href="#abstract">Abstract</a>
+      <a href="#contributions">Contributions</a>
+      <a href="#benchmark">Dataset</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#results">Results</a>
+      <a href="#visuals">Demos</a>
+      <a href="#citation">Citation</a>
+    </nav>
+
     <header class="hero">
       <div class="hero__inner">
-        <div class="hero__content">
-          <div class="hero__eyebrow">Project Page · Pano-Native Supersensing</div>
-          <h1>PanoWorld</h1>
-          <p class="hero__kicker">Seeing the whole 360° world at once.</p>
-          <p class="hero__tagline">
-            Towards spatial supersensing in 360° panorama world: teaching VLMs
-            to perceive continuous ERP panoramas directly, then transfer that
-            full-surround understanding to search, 3D reasoning, and navigation.
-          </p>
-          <div class="hero__actions">
-            <a class="button button--primary" href="https://github.com/wcpcp/PanoWorld">GitHub</a>
-            <a class="button" href="https://arxiv.org/pdf/2605.13169">arXiv PDF</a>
-            <a class="button" href="https://huggingface.co/papers/2605.13169">HF Paper</a>
-            <span class="button button--disabled">Dataset</span>
-            <span class="button button--disabled">Model</span>
-            <a class="button" href="#results">Results</a>
-            <a class="button" href="#benchmark">Benchmark</a>
-          </div>
-          <p class="hero__authors">
-            Changpeng Wang<sup>1</sup>, Xin Lin<sup>2</sup>, Junhan Liu<sup>1</sup>,
-            Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>,
-            Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
-            <span class="hero__affiliations">
-              <span><sup>1</sup>Zhejiang University</span>
-              <span><sup>2</sup>University of California, San Diego</span>
-              <span><sup>3</sup>University of California, Irvine</span>
-              <span><sup>4</sup>The University of Hong Kong</span>
-            </span>
-          </p>
+        <div class="hero__tags" aria-label="Project topics">
+          <span>360° Panorama</span>
+          <span>Pano-Native VLM</span>
+          <span>Spatial Supersensing</span>
+          <span>Embodied Transfer</span>
         </div>
-        <div class="hero__visual" aria-label="PanoWorld teaser visual">
-          <div class="hero__visual-glow"></div>
-          <div class="hero__orbit hero__orbit--one">Fragmented local views</div>
-          <div class="hero__orbit hero__orbit--two">Unified 360° world</div>
-          <figure class="hero__figure">
+        <div class="hero__eyebrow">Pano-Native Spatial Supersensing</div>
+        <h1>PanoWorld: Towards Spatial Supersensing in 360° Panorama World</h1>
+        <p class="hero__tagline">
+          A pano-native multimodal learning framework that teaches VLMs to
+          perceive and reason directly over complete 360° ERP panoramas as
+          continuous observer-centered worlds.
+        </p>
+        <p class="hero__authors">
+          Changpeng Wang<sup>1</sup>, Xin Lin<sup>2</sup>, Junhan Liu<sup>1</sup>,
+          Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>,
+          Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
+          <span class="hero__affiliations">
+            <span><sup>1</sup>Zhejiang University</span>
+            <span><sup>2</sup>University of California, San Diego</span>
+            <span><sup>3</sup>University of California, Irvine</span>
+            <span><sup>4</sup>The University of Hong Kong</span>
+          </span>
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="https://github.com/wcpcp/PanoWorld">GitHub</a>
+          <a class="button" href="https://arxiv.org/pdf/2605.13169">arXiv PDF</a>
+          <a class="button" href="https://huggingface.co/papers/2605.13169">HF Paper</a>
+          <span class="button button--disabled">Dataset</span>
+          <span class="button button--disabled">Model</span>
+          <a class="button" href="#results">Results</a>
+          <a class="button" href="#benchmark">Benchmark</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="overview" class="section section--figure">
+        <div class="container">
+          <figure class="figure-card figure-card--hero">
             <img src="./assets/teaser.png" alt="PanoWorld teaser figure" />
           </figure>
-          <div class="hero__caption">
+          <p class="teaser-statement">
             Existing MLLMs reason over fragmented local views, making it
             difficult to associate spatial cues in 360°. We introduce
             <strong>pano-native supersensing</strong>, which teaches VLMs to
@@ -64,17 +84,10 @@
             unified full-surround representation for downstream tasks such as
             human-centric visual search, omnidirectional 3D spatial reasoning,
             and panoramic navigation.
-          </div>
-          <div class="hero__taskbar">
-            <span>Human-centric search</span>
-            <span>Omnidirectional 3D</span>
-            <span>Panoramic navigation</span>
-          </div>
+          </p>
         </div>
-      </div>
-    </header>
+      </section>
 
-    <main>
       <section class="section section--shift">
         <div class="container">
           <div class="supersense-panel">
@@ -112,10 +125,10 @@
         </div>
       </section>
 
-      <section class="section">
-        <div class="container container--narrow abstract-copy">
+      <section id="abstract" class="section">
+        <div class="container container--abstract abstract-copy">
           <h2>Abstract</h2>
-          <p class="lead">
+          <p>
             Multimodal large language models still struggle with spatial
             understanding under the dominant perspective-image paradigm, which
             inherits the narrow field of view of human-like perception. For
@@ -143,7 +156,7 @@
         </div>
       </section>
 
-      <section class="section section--tint">
+      <section id="contributions" class="section section--tint">
         <div class="container">
           <span class="section-kicker">What Enables Supersensing</span>
           <h2>The PanoWorld Supersensing Stack</h2>
@@ -268,7 +281,7 @@
         </div>
       </section>
 
-      <section class="section">
+      <section id="architecture" class="section">
         <div class="container">
           <div class="section-heading">
             <div>
@@ -662,7 +675,7 @@
         </div>
       </section>
 
-      <section class="section section--tint">
+      <section id="citation" class="section section--tint">
         <div class="container container--narrow">
           <h2>Citation</h2>
           <pre class="citation"><code>@article{panoworld2026,
