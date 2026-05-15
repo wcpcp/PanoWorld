@@ -9,15 +9,14 @@ This `docs/` directory is a GitHub Pages-ready project page draft for:
 - `assets/teaser.png`
 - `assets/architecture.png`
 - `assets/dataset.png`
+- `assets/case_localization.png`
+- `assets/case_reasoning.png`
+- `assets/case_hstar_1.png`
+- `assets/case_hstar_2.png`
+- `assets/case_3d_relation.png`
+- `assets/case_camera_rotation.png`
+- `assets/case_object_reorientation.png`
 - `assets/panoworld_paper.pdf`
-
-## Before publishing
-
-Please update the following in [`index.html`](/Users/wcp/code/erp_data_pipeline/docs/index.html):
-
-1. Dataset / benchmark release links
-2. Model / checkpoint links
-3. Any final venue wording if it changes from arXiv-only release
 
 ## GitHub Pages
 

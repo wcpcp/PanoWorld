@@ -230,6 +230,10 @@ a {
   padding: 22px;
 }
 
+.results-grid--wide {
+  margin-bottom: 26px;
+}
+
 .stat__value,
 .result-card__value {
   display: block;
@@ -254,6 +258,36 @@ a {
 .table-card {
   padding: 22px;
   overflow-x: auto;
+}
+
+.task-result + .task-result,
+.result-tables {
+  margin-top: 18px;
+}
+
+.task-result__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.task-result__heading p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.task-result__badge {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(22, 50, 71, 0.08);
+  color: var(--navy);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 table {
@@ -288,6 +322,17 @@ thead th {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.visual-card img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .resource-list {
@@ -334,8 +379,18 @@ thead th {
   .grid--cards,
   .stats-grid,
   .results-grid,
-  .two-up {
+  .two-up,
+  .visual-grid {
     grid-template-columns: 1fr;
+  }
+
+  .task-result__heading {
+    display: block;
+  }
+
+  .task-result__badge {
+    display: inline-flex;
+    margin-top: 12px;
   }
 
   .hero__inner {

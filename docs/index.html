@@ -19,7 +19,7 @@
   <body>
     <header class="hero">
       <div class="hero__inner">
-        <div class="hero__eyebrow">NeurIPS 2026 Submission</div>
+        <div class="hero__eyebrow">Project Page</div>
         <h1>PanoWorld</h1>
         <p class="hero__tagline">
           Towards Spatial Supersensing in 360° Panorama World
@@ -253,31 +253,40 @@
             </div>
           </div>
 
-          <div class="results-grid">
+          <div class="results-grid results-grid--wide">
             <article class="result-card">
               <span class="result-card__label">PanoSpace-Bench Overall</span>
               <div class="result-card__value">56.5</div>
               <p>vs. 30.8 for the Qwen3.5-9B panoramic baseline.</p>
             </article>
             <article class="result-card">
-              <span class="result-card__label">Absolute Direction</span>
-              <div class="result-card__value">93.7</div>
-              <p>Strong observer-centered localization under full-surround ERP input.</p>
+              <span class="result-card__label">H*Bench ERP Overall</span>
+              <div class="result-card__value">70.1</div>
+              <p>with H* SFT, improving holistic object and position sensing.</p>
             </article>
             <article class="result-card">
-              <span class="result-card__label">BFOV mIoU</span>
-              <div class="result-card__value">73.3</div>
-              <p>Large improvement in spherical target localization quality.</p>
+              <span class="result-card__label">R2R-CE Success Rate</span>
+              <div class="result-card__value">54.3</div>
+              <p>stronger panoramic navigation transfer on Val-Unseen.</p>
             </article>
             <article class="result-card">
-              <span class="result-card__label">3D Spatial Avg.</span>
-              <div class="result-card__value">49.8</div>
-              <p>Improved distance and relative 3D reasoning under panoramic observation.</p>
+              <span class="result-card__label">R2R-CE SPL</span>
+              <div class="result-card__value">52.1</div>
+              <p>better path efficiency while preserving high navigation success.</p>
             </article>
           </div>
 
-          <div class="table-card">
-            <h3>PanoSpace-Bench Comparison</h3>
+          <div class="table-card task-result">
+            <div class="task-result__heading">
+              <div>
+                <h3>PanoSpace-Bench</h3>
+                <p>
+                  ERP-native spatial reasoning across spherical localization,
+                  3D relations, and seam-aware perception.
+                </p>
+              </div>
+              <span class="task-result__badge">Diagnostic benchmark</span>
+            </div>
             <table>
               <thead>
                 <tr>
@@ -339,113 +348,202 @@
               </tbody>
             </table>
           </div>
-        </div>
-      </section>
 
-      <section class="section section--tint">
-        <div class="container">
-          <div class="section-heading">
-            <div>
-              <h2>Ablations</h2>
-              <p>
-                The paper studies both <strong>where</strong> to inject ERP
-                geometry and <strong>which components</strong> need to be
-                trainable for pano-native learning.
-              </p>
-            </div>
-          </div>
-
-          <div class="two-up">
-            <div class="table-card">
-              <h3>Architecture Ablation</h3>
+          <div class="two-up result-tables">
+            <div class="table-card task-result">
+              <div class="task-result__heading">
+                <div>
+                  <h3>H*Bench</h3>
+                  <p>
+                    Holistic panorama sensing under both perspective-view and
+                    ERP panorama evaluation settings.
+                  </p>
+                </div>
+                <span class="task-result__badge">Holistic sensing</span>
+              </div>
               <table>
                 <thead>
                   <tr>
                     <th>Method</th>
-                    <th>Position</th>
                     <th>Overall</th>
+                    <th>HOS</th>
+                    <th>HPS</th>
+                    <th>Yaw</th>
+                    <th>Pitch</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Qwen3.5</td>
-                    <td>--</td>
-                    <td>48.4</td>
+                    <td>GPT-4o ERP</td>
+                    <td>30.1</td>
+                    <td>39.1</td>
+                    <td>17.1</td>
+                    <td>38.5</td>
+                    <td>64.2</td>
                   </tr>
                   <tr>
-                    <td>Residual</td>
-                    <td>Output</td>
-                    <td>50.5</td>
+                    <td>Gemini-2.5-Pro ERP</td>
+                    <td>46.9</td>
+                    <td>55.3</td>
+                    <td>34.3</td>
+                    <td>52.5</td>
+                    <td>71.6</td>
                   </tr>
                   <tr>
-                    <td>Residual</td>
-                    <td>Patch</td>
-                    <td>51.5</td>
+                    <td>Qwen3.5-9B ERP</td>
+                    <td>19.4</td>
+                    <td>26.2</td>
+                    <td>9.3</td>
+                    <td>23.5</td>
+                    <td>46.5</td>
                   </tr>
                   <tr>
-                    <td>Cross-Attn</td>
-                    <td>Merge</td>
-                    <td>50.8</td>
-                  </tr>
-                  <tr>
-                    <td>Cross-Attn</td>
-                    <td>Output</td>
-                    <td>51.0</td>
+                    <td>Qwen3.5 + visual prompt</td>
+                    <td>40.4</td>
+                    <td>46.0</td>
+                    <td>32.0</td>
+                    <td>43.5</td>
+                    <td>52.0</td>
                   </tr>
                   <tr class="table-row--highlight">
-                    <td>Cross-Attn</td>
-                    <td>Patch</td>
-                    <td>55.1</td>
+                    <td>PanoWorld + H* SFT</td>
+                    <td>70.1</td>
+                    <td>73.1</td>
+                    <td>64.2</td>
+                    <td>74.1</td>
+                    <td>85.5</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div class="table-card">
-              <h3>Trainable Component Ablation</h3>
+            <div class="table-card task-result">
+              <div class="task-result__heading">
+                <div>
+                  <h3>Navigation Transfer</h3>
+                  <p>
+                    R2R-CE Val-Unseen results show that pano-native visual
+                    representations transfer to embodied navigation.
+                  </p>
+                </div>
+                <span class="task-result__badge">R2R-CE Val-Unseen</span>
+              </div>
               <table>
                 <thead>
                   <tr>
-                    <th>Train Scope</th>
-                    <th>Abs. Dir.</th>
-                    <th>BFOV mIoU</th>
-                    <th>Seam</th>
+                    <th>Method</th>
+                    <th>NE ↓</th>
+                    <th>OSR ↑</th>
+                    <th>SR ↑</th>
+                    <th>SPL ↑</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>LLM only</td>
-                    <td>84.8</td>
-                    <td>62.28</td>
-                    <td>55.6</td>
+                    <td>HPN + DN</td>
+                    <td>6.31</td>
+                    <td>40.0</td>
+                    <td>36.0</td>
+                    <td>34.0</td>
                   </tr>
                   <tr>
-                    <td>VL Int. only</td>
-                    <td>25.6</td>
-                    <td>2.19</td>
-                    <td>37.4</td>
+                    <td>GridMM</td>
+                    <td>5.11</td>
+                    <td>61.0</td>
+                    <td>49.0</td>
+                    <td>41.0</td>
                   </tr>
                   <tr>
-                    <td>VL Int. + LLM</td>
-                    <td>83.6</td>
-                    <td>64.25</td>
+                    <td>StreamVLN</td>
+                    <td>5.73</td>
                     <td>56.4</td>
+                    <td>50.2</td>
+                    <td>47.1</td>
                   </tr>
                   <tr>
-                    <td>Vision + VL Int.</td>
-                    <td>34.2</td>
-                    <td>6.04</td>
-                    <td>46.4</td>
+                    <td>NaVIDA</td>
+                    <td>5.72</td>
+                    <td>57.4</td>
+                    <td>47.7</td>
+                    <td>41.5</td>
                   </tr>
                   <tr class="table-row--highlight">
-                    <td>Full pano-native FT</td>
-                    <td>92.8</td>
-                    <td>72.60</td>
-                    <td>64.8</td>
+                    <td>PanoWorld-VLN</td>
+                    <td>4.98</td>
+                    <td>59.3</td>
+                    <td>54.3</td>
+                    <td>52.1</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="visuals" class="section section--tint">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Qualitative Results</h2>
+              <p>
+                Visual examples highlight how pano-native learning helps the
+                model localize objects, reason over full-surround layouts, and
+                preserve global spatial consistency.
+              </p>
+            </div>
+          </div>
+
+          <div class="visual-grid">
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_localization.png" alt="PanoWorld localization result" />
+              <figcaption>
+                Spherical localization: PanoWorld predicts object locations in
+                the continuous ERP panorama instead of isolated crops.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_reasoning.png" alt="PanoWorld panoramic reasoning result" />
+              <figcaption>
+                Panoramic reasoning: full-scene context supports direction,
+                relation, and topology judgments across the 360° field of view.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_hstar_1.png" alt="PanoWorld H star holistic sensing result" />
+              <figcaption>
+                H*Bench example: holistic object sensing benefits from modeling
+                the panorama as one observer-centered environment.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_hstar_2.png" alt="PanoWorld H star position sensing result" />
+              <figcaption>
+                H*Bench example: spherical position cues help resolve target
+                direction and pose under wide-field distortion.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_3d_relation.png" alt="PanoWorld 3D relation reasoning result" />
+              <figcaption>
+                3D relation reasoning: global panorama context provides cues for
+                distance, ordering, and spatial relation judgments.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_camera_rotation.png" alt="PanoWorld camera rotation reasoning result" />
+              <figcaption>
+                Viewpoint transformation: the model reasons about how targets
+                move when the observer-facing direction changes.
+              </figcaption>
+            </figure>
+            <figure class="figure-card visual-card">
+              <img src="./assets/case_object_reorientation.png" alt="PanoWorld object reorientation result" />
+              <figcaption>
+                Object reorientation: spherical cues help preserve consistent
+                target orientation across ERP distortions.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
