@@ -24,46 +24,42 @@ This enables a unified full-surround representation for downstream tasks such as
 
 ## Highlights
 
-| Icon | Component | Description |
-| --- | --- | --- |
-| 🌐 | **Pano-native supersensing** | Learns from complete 360° ERP panoramas instead of stitching together narrow perspective views. |
-| 🧭 | **Observer-centered spatial reasoning** | Models directions, reference-frame changes, seam continuity, and panoramic topology. |
-| 🧠 | **PanoSpace-Bench** | Diagnostic benchmark for ERP-native spatial localization, 3D relations, BFOV grounding, and reorientation. |
-| 🏗️ | **PanoWorld architecture** | Injects spherical geometry into the visual stream through Spherical Spatial Cross-Attention. |
-| 🚶 | **Embodied transfer** | Transfers panoramic understanding to navigation settings such as R2R-CE Val-Unseen. |
+| Component | Description |
+| --- | --- |
+| 🌐 **Pano-native supersensing** | Learns from complete 360° ERP panoramas instead of stitching together narrow perspective views. |
+| 🧠 **PanoSpace-Bench** | Diagnostic benchmark for ERP-native spatial localization, 3D relations, BFOV grounding, and reorientation. |
+| 🏗️ **PanoWorld** | Injects spherical geometry into the visual stream through Spherical Spatial Cross-Attention. |
+| 🚶 **Embodied transfer** | Transfers panoramic understanding to navigation settings such as R2R-CE Val-Unseen. |
 
 ## Release TODO
 
-We are preparing the public release. Code, model weights, and data will be uploaded in stages.
+We are preparing the public release. Code, checkpoints, datasets, and benchmark files will be uploaded in stages.
 
-- [x] 🌍 Project page
-- [x] 📄 arXiv paper link
-- [x] 🤗 Hugging Face paper page
-- [ ] 📦 Training and evaluation code
-- [ ] 🧠 PanoWorld model checkpoints
-- [ ] 🗂️ PanoWorld training data
-- [ ] 🧪 PanoSpace-Bench benchmark files
-- [ ] 📊 Evaluation scripts and result reproduction guide
-- [ ] 🧭 Navigation transfer setup
+- [x] 📄 Paper
+- [ ] 📦 Code
+- [ ] 🗂️ Dataset
+- [ ] 🧪 Benchmark
+- [ ] 🧠 Checkpoints
 
-## Repository Status
+## Visual Examples
 
-| Resource | Status | Link |
-| --- | --- | --- |
-| Project page | ✅ Available | [wcpcp.github.io/PanoWorld](https://wcpcp.github.io/PanoWorld/) |
-| Paper | ✅ Available | [arXiv PDF](https://arxiv.org/pdf/2605.13169) |
-| Hugging Face paper page | ✅ Available | [HF Papers](https://huggingface.co/papers/2605.13169) |
-| Code | 🚧 Coming soon | To be released |
-| Dataset | 🚧 Coming soon | To be released |
-| Model | 🚧 Coming soon | To be released |
+<p align="center">
+  <img src="./docs/assets/demo_3d_relation.png" alt="PanoSpace-Bench 3D relation reasoning" width="30%">
+  <img src="./docs/assets/demo_camera_rotation.png" alt="PanoSpace-Bench camera rotation reasoning" width="30%">
+  <img src="./docs/assets/demo_object_reorientation.png" alt="PanoSpace-Bench object reorientation reasoning" width="30%">
+</p>
 
-## Main Tasks
+<p align="center">
+  <em>PanoSpace-Bench examples cover 3D relation reasoning, reference-frame transformation, and object reorientation in full 360° ERP panoramas.</em>
+</p>
 
-| Task | Goal |
-| --- | --- |
-| 🌐 **PanoSpace-Bench spatial reasoning** | Evaluate whether models understand spherical localization, ERP geometry, object reorientation, and 3D relations in a panorama-native setting. |
-| 🔎 **H\*Bench holistic sensing** | Test whether full-surround panoramic observations support human-centric object and position sensing. |
-| 🚶 **Panoramic navigation transfer** | Use pano-native visual representations to improve embodied navigation in unseen environments. |
+<p align="center">
+  <img src="./docs/assets/demo_hstar_comparison.png" alt="H*Bench holistic sensing comparison" width="82%">
+</p>
+
+<p align="center">
+  <em>H*Bench examples show how pano-native reasoning avoids fragmented perspective-view search and supports holistic object and position sensing.</em>
+</p>
 
 ## News
 
