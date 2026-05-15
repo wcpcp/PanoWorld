@@ -19,49 +19,96 @@
   <body>
     <header class="hero">
       <div class="hero__inner">
-        <div class="hero__eyebrow">Project Page</div>
-        <h1>PanoWorld</h1>
-        <p class="hero__tagline">
-          Towards Spatial Supersensing in 360° Panorama World
-        </p>
-        <p class="hero__authors">
-          Changpeng Wang<sup>1</sup>, Xin Lin<sup>2</sup>, Junhan Liu<sup>1</sup>,
-          Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>,
-          Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
-          <span class="hero__affiliations">
-            <span><sup>1</sup>Zhejiang University</span>
-            <span><sup>2</sup>University of California, San Diego</span>
-            <span><sup>3</sup>University of California, Irvine</span>
-            <span><sup>4</sup>The University of Hong Kong</span>
-          </span>
-        </p>
-        <div class="hero__actions">
-          <a class="button button--primary" href="https://github.com/wcpcp/PanoWorld">GitHub</a>
-          <a class="button" href="https://arxiv.org/pdf/2605.13169">arXiv PDF</a>
-          <a class="button" href="https://huggingface.co/papers/2605.13169">HF Paper</a>
-          <span class="button button--disabled">Dataset</span>
-          <span class="button button--disabled">Model</span>
-          <a class="button" href="#results">Results</a>
-          <a class="button" href="#benchmark">Benchmark</a>
+        <div class="hero__content">
+          <div class="hero__eyebrow">Project Page · Pano-Native Supersensing</div>
+          <h1>PanoWorld</h1>
+          <p class="hero__kicker">Seeing the whole 360° world at once.</p>
+          <p class="hero__tagline">
+            Towards spatial supersensing in 360° panorama world: teaching VLMs
+            to perceive continuous ERP panoramas directly, then transfer that
+            full-surround understanding to search, 3D reasoning, and navigation.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="https://github.com/wcpcp/PanoWorld">GitHub</a>
+            <a class="button" href="https://arxiv.org/pdf/2605.13169">arXiv PDF</a>
+            <a class="button" href="https://huggingface.co/papers/2605.13169">HF Paper</a>
+            <span class="button button--disabled">Dataset</span>
+            <span class="button button--disabled">Model</span>
+            <a class="button" href="#results">Results</a>
+            <a class="button" href="#benchmark">Benchmark</a>
+          </div>
+          <p class="hero__authors">
+            Changpeng Wang<sup>1</sup>, Xin Lin<sup>2</sup>, Junhan Liu<sup>1</sup>,
+            Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>,
+            Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
+            <span class="hero__affiliations">
+              <span><sup>1</sup>Zhejiang University</span>
+              <span><sup>2</sup>University of California, San Diego</span>
+              <span><sup>3</sup>University of California, Irvine</span>
+              <span><sup>4</sup>The University of Hong Kong</span>
+            </span>
+          </p>
+        </div>
+        <div class="hero__visual" aria-label="PanoWorld teaser visual">
+          <div class="hero__visual-glow"></div>
+          <div class="hero__orbit hero__orbit--one">Fragmented local views</div>
+          <div class="hero__orbit hero__orbit--two">Unified 360° world</div>
+          <figure class="hero__figure">
+            <img src="./assets/teaser.png" alt="PanoWorld teaser figure" />
+          </figure>
+          <div class="hero__caption">
+            Existing MLLMs reason over fragmented local views, making it
+            difficult to associate spatial cues in 360°. We introduce
+            <strong>pano-native supersensing</strong>, which teaches VLMs to
+            perceive and reason directly over 360° panoramas, providing a
+            unified full-surround representation for downstream tasks such as
+            human-centric visual search, omnidirectional 3D spatial reasoning,
+            and panoramic navigation.
+          </div>
+          <div class="hero__taskbar">
+            <span>Human-centric search</span>
+            <span>Omnidirectional 3D</span>
+            <span>Panoramic navigation</span>
+          </div>
         </div>
       </div>
     </header>
 
     <main>
-      <section class="section section--figure">
+      <section class="section section--shift">
         <div class="container">
-          <figure class="figure-card figure-card--hero">
-            <img src="./assets/teaser.png" alt="PanoWorld teaser figure" />
-            <figcaption>
-              Existing MLLMs reason over fragmented local views, making it
-              difficult to associate spatial cues in 360°. We introduce
-              <strong>pano-native supersensing</strong>, which teaches VLMs to
-              perceive and reason directly over 360° panoramas, providing a
-              unified full-surround representation for downstream tasks such as
-              human-centric visual search, omnidirectional 3D spatial reasoning,
-              and panoramic navigation.
-            </figcaption>
-          </figure>
+          <div class="supersense-panel">
+            <div class="supersense-panel__copy">
+              <span class="section-kicker">Core Idea</span>
+              <h2>From view-by-view guessing to pano-native supersensing.</h2>
+              <p>
+                PanoWorld treats an ERP panorama as one continuous,
+                observer-centered world. The model no longer has to stitch
+                together disconnected crops; it can associate objects,
+                directions, depth, and navigation cues across the full 360°
+                field of view.
+              </p>
+            </div>
+            <div class="supersense-flow" aria-label="PanoWorld supersensing flow">
+              <div class="flow-card flow-card--muted">
+                <span>Before</span>
+                <strong>Perspective fragments</strong>
+                <p>Narrow local views lose global direction and seam context.</p>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-card flow-card--active">
+                <span>PanoWorld</span>
+                <strong>Full-surround ERP reasoning</strong>
+                <p>Spherical geometry aligns the visual stream with 360° space.</p>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-card">
+                <span>After</span>
+                <strong>Downstream supersensing</strong>
+                <p>Search, spatial reasoning, and navigation share one world model.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -98,9 +145,11 @@
 
       <section class="section section--tint">
         <div class="container">
-          <h2>What This Project Contributes</h2>
+          <span class="section-kicker">What Enables Supersensing</span>
+          <h2>The PanoWorld Supersensing Stack</h2>
           <div class="grid grid--cards">
             <article class="card">
+              <span class="card__index">01</span>
               <h3>Pano-Native Ability Foundation</h3>
               <p>
                 We formalize the core abilities required for panoramic
@@ -110,6 +159,7 @@
               </p>
             </article>
             <article class="card">
+              <span class="card__index">02</span>
               <h3>Verifiable 570K ERP Data Engine</h3>
               <p>
                 A metadata-driven construction pipeline converts mixed-source
@@ -119,6 +169,7 @@
               </p>
             </article>
             <article class="card">
+              <span class="card__index">03</span>
               <h3>PanoSpace-Bench Diagnostic Suite</h3>
               <p>
                 A benchmark designed for ERP-native spatial reasoning,
@@ -128,6 +179,7 @@
               </p>
             </article>
             <article class="card">
+              <span class="card__index">04</span>
               <h3>PanoWorld Geometry-Aware MLLM</h3>
               <p>
                 PanoWorld injects spherical geometry into the visual stream via
