@@ -40,6 +40,8 @@
           <a class="button button--primary" href="https://github.com/wcpcp/PanoWorld">GitHub</a>
           <a class="button" href="https://arxiv.org/pdf/2605.13169">arXiv PDF</a>
           <a class="button" href="https://huggingface.co/papers/2605.13169">HF Paper</a>
+          <span class="button button--disabled">Dataset</span>
+          <span class="button button--disabled">Model</span>
           <a class="button" href="#results">Results</a>
           <a class="button" href="#benchmark">Benchmark</a>
         </div>
@@ -66,22 +68,28 @@
           <h2>Abstract</h2>
           <p class="lead">
             Multimodal large language models still struggle with spatial
-            understanding under the dominant perspective-image paradigm. While
-            360° panoramic sensing captures the entire surrounding environment at
-            once, existing MLLM pipelines typically decompose panoramas into
-            multiple perspective views and leave the spherical structure of ERP
-            imagery largely implicit.
+            understanding under the dominant perspective-image paradigm, which
+            inherits the narrow field of view of human-like perception. For
+            navigation, robotic search, and 3D scene understanding, 360°
+            panoramic sensing offers a form of supersensing by capturing the
+            entire surrounding environment at once. However, existing MLLM
+            pipelines typically decompose panoramas into multiple perspective
+            views, leaving the spherical structure of equirectangular projection
+            (ERP) largely implicit.
           </p>
           <p>
-            PanoWorld studies <strong>pano-native understanding</strong>, where
-            an MLLM reasons over an ERP panorama as a continuous,
-            observer-centered space. The project introduces: a capability-based
-            formulation of panoramic spatial understanding; a large-scale
-            metadata construction pipeline that converts mixed-source panoramas
-            into geometry-aware instruction tuning data; a pano-aware MLLM with
-            <strong>Spherical Spatial Cross-Attention</strong>; and
-            <strong>PanoSpace-Bench</strong>, a diagnostic benchmark for
-            ERP-native spatial reasoning.
+            In this paper, we study <strong>pano-native understanding</strong>,
+            which requires an MLLM to reason over an ERP panorama as a
+            continuous, observer-centered space. We define key abilities for
+            pano-native understanding, build a large-scale metadata construction
+            pipeline that converts mixed-source ERP panoramas into
+            geometry-aware, language-grounded, and depth-aware supervision, and
+            introduce PanoWorld with <strong>Spherical Spatial Cross-Attention</strong>.
+            We further construct <strong>PanoSpace-Bench</strong>, a diagnostic
+            benchmark for evaluating ERP-native spatial reasoning. Experiments
+            show that PanoWorld substantially outperforms proprietary and
+            open-source baselines on PanoSpace-Bench, H*Bench, and R2R-CE
+            Val-Unseen benchmarks.
           </p>
         </div>
       </section>
@@ -123,28 +131,6 @@
               </p>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="section-heading">
-            <div>
-              <h2>Method Overview</h2>
-              <p>
-                PanoWorld augments a panoramic MLLM with spherical geometry and
-                pano-native supervision instead of relying on fragmented
-                perspective crops.
-              </p>
-            </div>
-          </div>
-          <figure class="figure-card">
-            <img src="./assets/architecture.png" alt="PanoWorld architecture" />
-            <figcaption>
-              The model introduces a spherical spatial cross-attention mechanism
-              to align ERP visual tokens with the underlying 360° geometry.
-            </figcaption>
-          </figure>
         </div>
       </section>
 
@@ -218,6 +204,28 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2>Method Overview</h2>
+              <p>
+                PanoWorld augments a panoramic MLLM with spherical geometry and
+                pano-native supervision instead of relying on fragmented
+                perspective crops.
+              </p>
+            </div>
+          </div>
+          <figure class="figure-card">
+            <img src="./assets/architecture.png" alt="PanoWorld architecture" />
+            <figcaption>
+              The model introduces a spherical spatial cross-attention mechanism
+              to align ERP visual tokens with the underlying 360° geometry.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -484,7 +492,7 @@
               </p>
             </div>
           </div>
-          <div class="visual-grid visual-grid--showcase">
+          <div class="visual-grid visual-grid--trio">
             <figure class="figure-card visual-card">
               <img src="./assets/demo_3d_relation.png" alt="PanoWorld 3D relation reasoning result" />
               <figcaption>
@@ -526,6 +534,8 @@
                 enables holistic reasoning in one step.
               </figcaption>
             </figure>
+          </div>
+          <div class="visual-grid visual-grid--duo">
             <figure class="figure-card visual-card">
               <img src="./assets/demo_hps_case1.png" alt="PanoWorld H star holistic sensing result" />
               <figcaption>
@@ -553,7 +563,7 @@
               </p>
             </div>
           </div>
-          <div class="visual-grid">
+          <div class="visual-stack">
             <figure class="figure-card visual-card">
               <video controls muted playsinline preload="metadata" src="./assets/demo_vln1.mp4"></video>
               <figcaption>
@@ -568,34 +578,6 @@
                 spatial grounding.
               </figcaption>
             </figure>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container container--narrow">
-          <h2>Resources</h2>
-          <div class="resource-list">
-            <a class="resource" href="https://github.com/wcpcp/PanoWorld">
-              <span class="resource__title">Code</span>
-              <span class="resource__desc">Main repository and training pipeline.</span>
-            </a>
-            <a class="resource" href="https://arxiv.org/pdf/2605.13169">
-              <span class="resource__title">arXiv PDF</span>
-              <span class="resource__desc">Official arXiv paper PDF.</span>
-            </a>
-            <a class="resource" href="https://huggingface.co/papers/2605.13169">
-              <span class="resource__title">Hugging Face Paper</span>
-              <span class="resource__desc">Paper summary and reader-friendly landing page.</span>
-            </a>
-            <div class="resource resource--muted">
-              <span class="resource__title">Dataset & Benchmark</span>
-              <span class="resource__desc">Coming soon.</span>
-            </div>
-            <div class="resource resource--muted">
-              <span class="resource__title">Models & Checkpoints</span>
-              <span class="resource__desc">Coming soon.</span>
-            </div>
           </div>
         </div>
       </section>
