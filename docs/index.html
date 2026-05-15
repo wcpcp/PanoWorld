@@ -160,31 +160,12 @@
             </div>
           </div>
 
-          <div class="stats-grid">
-            <div class="stat">
-              <span class="stat__value">570K</span>
-              <span class="stat__label">ERP panoramas</span>
-            </div>
-            <div class="stat">
-              <span class="stat__value">5</span>
-              <span class="stat__label">Core capability groups</span>
-            </div>
-            <div class="stat">
-              <span class="stat__value">Pano</span>
-              <span class="stat__label">Native supervision view</span>
-            </div>
-            <div class="stat">
-              <span class="stat__value">Depth + Graph</span>
-              <span class="stat__label">Geometry-aware annotations</span>
-            </div>
-          </div>
-
           <figure class="figure-card">
             <img src="./assets/dataset.png" alt="PanoWorld dataset pipeline" />
             <figcaption>
-              PanoWorld builds geometry-aware, depth-aware, and
-              language-grounded supervision from large-scale ERP panorama
-              metadata.
+              Verifiable metadata construction pipeline used in the paper:
+              mixed-source ERP panoramas are converted into geometry-aware,
+              depth-aware, and language-grounded supervision.
             </figcaption>
           </figure>
 
@@ -503,21 +484,7 @@
               </p>
             </div>
           </div>
-          <div class="visual-grid">
-            <figure class="figure-card visual-card">
-              <img src="./assets/case_localization.png" alt="PanoWorld localization result" />
-              <figcaption>
-                Spherical localization: PanoWorld predicts object locations in
-                the continuous ERP panorama instead of isolated crops.
-              </figcaption>
-            </figure>
-            <figure class="figure-card visual-card">
-              <img src="./assets/case_reasoning.png" alt="PanoWorld panoramic reasoning result" />
-              <figcaption>
-                Panoramic reasoning: full-scene context supports direction,
-                relation, and topology judgments across the 360° field of view.
-              </figcaption>
-            </figure>
+          <div class="visual-grid visual-grid--showcase">
             <figure class="figure-card visual-card">
               <img src="./assets/demo_3d_relation.png" alt="PanoWorld 3D relation reasoning result" />
               <figcaption>
@@ -550,7 +517,15 @@
               </p>
             </div>
           </div>
-          <div class="visual-grid">
+          <div class="visual-grid visual-grid--showcase">
+            <figure class="figure-card visual-card">
+              <img src="./assets/demo_hstar_comparison.png" alt="Perspective-view search compared with pano-native H star reasoning" />
+              <figcaption>
+                H*Bench comparison: perspective-view iterative search is
+                fragmented and may miss the target, while direct ERP input
+                enables holistic reasoning in one step.
+              </figcaption>
+            </figure>
             <figure class="figure-card visual-card">
               <img src="./assets/demo_hps_case1.png" alt="PanoWorld H star holistic sensing result" />
               <figcaption>
@@ -571,8 +546,10 @@
             <div class="demo-block__heading">
               <h3>Navigation Transfer</h3>
               <p>
-                VLN demos illustrate how pano-native representations transfer
-                to embodied instruction following.
+                Compared with RGB perspective-view navigation, panoramic input
+                gives the agent full-surround context at each step. This reduces
+                blind-spot exploration and helps ground instructions in global
+                scene layout.
               </p>
             </div>
           </div>

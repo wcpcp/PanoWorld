@@ -9,16 +9,10 @@ This `docs/` directory is a GitHub Pages-ready project page draft for:
 - `assets/teaser.png`
 - `assets/architecture.png`
 - `assets/dataset.png`
-- `assets/case_localization.png`
-- `assets/case_reasoning.png`
-- `assets/case_hstar_1.png`
-- `assets/case_hstar_2.png`
-- `assets/case_3d_relation.png`
-- `assets/case_camera_rotation.png`
-- `assets/case_object_reorientation.png`
 - `assets/demo_3d_relation.png`
 - `assets/demo_camera_rotation.png`
 - `assets/demo_object_reorientation.png`
+- `assets/demo_hstar_comparison.png`
 - `assets/demo_hps_case1.png`
 - `assets/demo_hps_case2.png`
 - `assets/demo_vln1.mp4`

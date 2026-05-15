@@ -352,12 +352,21 @@ thead th {
   gap: 18px;
 }
 
+.visual-grid--showcase {
+  grid-template-columns: 1fr;
+}
+
 .visual-card img,
 .visual-card video {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+.visual-grid--showcase .visual-card img {
+  aspect-ratio: auto;
+  object-fit: contain;
 }
 
 .resource-list {
