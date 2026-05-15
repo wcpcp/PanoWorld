@@ -93,20 +93,19 @@
           <div class="supersense-panel">
             <div class="supersense-panel__copy">
               <span class="section-kicker">Core Idea</span>
-              <h2>From view-by-view guessing to pano-native supersensing.</h2>
+              <h2>From perspective-view exploration to pano-native supersensing.</h2>
               <p>
                 PanoWorld treats an ERP panorama as one continuous,
-                observer-centered world. The model no longer has to stitch
-                together disconnected crops; it can associate objects,
-                directions, depth, and navigation cues across the full 360°
-                field of view.
+                observer-centered world. Instead of rotating through partial
+                perspective views, the model can associate objects, directions,
+                depth, and navigation cues across the full 360° field of view.
               </p>
             </div>
             <div class="supersense-flow" aria-label="PanoWorld supersensing flow">
               <div class="flow-card flow-card--muted">
                 <span>Before</span>
-                <strong>Perspective fragments</strong>
-                <p>Narrow local views lose global direction and seam context.</p>
+                <strong>Perspective-view exploration</strong>
+                <p>Sequential local views make global direction and seam context hard to maintain.</p>
               </div>
               <div class="flow-arrow">→</div>
               <div class="flow-card flow-card--active">
@@ -137,10 +136,7 @@
             entire surrounding environment at once. However, existing MLLM
             pipelines typically decompose panoramas into multiple perspective
             views, leaving the spherical structure of equirectangular projection
-            (ERP) largely implicit.
-          </p>
-          <p>
-            In this paper, we study <strong>pano-native understanding</strong>,
+            (ERP) largely implicit. In this paper, we study <strong>pano-native understanding</strong>,
             which requires an MLLM to reason over an ERP panorama as a
             continuous, observer-centered space. We define key abilities for
             pano-native understanding, build a large-scale metadata construction
@@ -304,6 +300,28 @@
               reasoning while preserving the original backbone.
             </figcaption>
           </figure>
+          <div class="equation-grid" aria-label="PanoWorld architecture formulas">
+            <article class="equation-card">
+              <span class="equation-card__label">Spherical token construction</span>
+              <div class="equation">s<sub>i</sub> = MLP(γ(λ<sub>i</sub>, φ<sub>i</sub>)) ∈ ℝ<sup>d</sup></div>
+              <p>Each ERP patch center (u<sub>i</sub>, v<sub>i</sub>) is mapped to yaw-pitch direction (λ<sub>i</sub>, φ<sub>i</sub>) and encoded as a spherical spatial token.</p>
+            </article>
+            <article class="equation-card">
+              <span class="equation-card__label">Spherical token stack</span>
+              <div class="equation">S = [s<sub>1</sub>, ..., s<sub>N</sub>] ∈ ℝ<sup>N×d</sup></div>
+              <p>The resulting sequence preserves observer-centered geometry aligned with the ERP representation.</p>
+            </article>
+            <article class="equation-card">
+              <span class="equation-card__label">SSCA fusion</span>
+              <div class="equation">A = MHA(LN(H<sup>(0)</sup>), LN(S), LN(S))</div>
+              <p>Visual patch tokens query spherical spatial tokens through cross-attention to retrieve geometry-aware signals.</p>
+            </article>
+            <article class="equation-card">
+              <span class="equation-card__label">Gated residual update</span>
+              <div class="equation">H̃<sup>(0)</sup> = H<sup>(0)</sup> + α ⊙ A</div>
+              <p>A learnable gate controls how much spherical geometry is injected before the remaining visual blocks.</p>
+            </article>
+          </div>
         </div>
       </section>
 

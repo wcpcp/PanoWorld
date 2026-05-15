@@ -121,7 +121,7 @@ a {
 
 .hero__inner,
 .container {
-  width: min(1160px, calc(100vw - 48px));
+  width: min(1280px, calc(100vw - 40px));
   margin: 0 auto;
 }
 
@@ -130,7 +130,7 @@ a {
 }
 
 .container--abstract {
-  width: min(1080px, calc(100vw - 48px));
+  width: min(1100px, calc(100vw - 48px));
 }
 
 .hero__inner {
@@ -256,7 +256,7 @@ a {
 }
 
 .section {
-  padding: 64px 0;
+  padding: 54px 0;
 }
 
 .section--tint {
@@ -270,7 +270,7 @@ a {
 }
 
 .section--shift {
-  padding: 18px 0 64px;
+  padding: 16px 0 52px;
 }
 
 .section-kicker {
@@ -460,10 +460,55 @@ a {
 }
 
 .figure-card figcaption {
-  padding: 16px 20px 20px;
+  padding: 14px 18px 16px;
   color: var(--muted);
-  font-size: 0.98rem;
-  line-height: 1.65;
+  font-size: 0.94rem;
+  line-height: 1.58;
+}
+
+.equation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.equation-card {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 254, 249, 0.78);
+  box-shadow: var(--shadow-soft);
+}
+
+.equation-card__label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent-dark);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.equation {
+  overflow-x: auto;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--soft);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.04rem;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.equation-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.48;
 }
 
 .grid--cards {
@@ -618,7 +663,7 @@ thead th {
 }
 
 .demo-block {
-  margin: 24px 0 12px;
+  margin: 18px 0 10px;
 }
 
 .demo-block:first-of-type {
@@ -642,7 +687,7 @@ thead th {
 .visual-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 10px;
 }
 
 .visual-grid--showcase {
@@ -659,7 +704,7 @@ thead th {
 
 .visual-stack {
   display: grid;
-  gap: 18px;
+  gap: 12px;
 }
 
 .visual-card img {
@@ -727,6 +772,7 @@ thead th {
   .grid--cards,
   .stats-grid,
   .results-grid,
+  .equation-grid,
   .two-up,
   .visual-grid,
   .visual-grid--trio,
