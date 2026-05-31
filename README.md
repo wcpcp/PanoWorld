@@ -7,8 +7,9 @@
 [![Project Page](https://img.shields.io/badge/Project-Page-2d776f?style=for-the-badge&logo=githubpages&logoColor=white)](https://wcpcp.github.io/PanoWorld/)
 [![arXiv](https://img.shields.io/badge/arXiv-2605.13169-b31b1b?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/pdf/2605.13169)
 [![HF Paper](https://img.shields.io/badge/HuggingFace-Paper-ffcc4d?style=for-the-badge&logo=huggingface&logoColor=111)](https://huggingface.co/papers/2605.13169)
-[![Dataset](https://img.shields.io/badge/Dataset-Coming%20Soon-8c8c8c?style=for-the-badge)](#release-todo)
-[![Model](https://img.shields.io/badge/Model-Coming%20Soon-8c8c8c?style=for-the-badge)](#release-todo)
+[![Models](https://img.shields.io/badge/Models-HuggingFace-ffcc4d?style=for-the-badge&logo=huggingface&logoColor=111)](https://huggingface.co/wcccp)
+[![Dataset](https://img.shields.io/badge/Dataset-Released-2d776f?style=for-the-badge)](https://huggingface.co/datasets/wcccp/Pano_dataset)
+[![Benchmark](https://img.shields.io/badge/Benchmark-Released-2d776f?style=for-the-badge)](https://huggingface.co/datasets/wcccp/PanoSpace-Bench)
 
 </div>
 
@@ -31,15 +32,27 @@ This enables a unified full-surround representation for downstream tasks such as
 | 🏗️ **PanoWorld** | Injects spherical geometry into the visual stream through Spherical Spatial Cross-Attention. |
 | 🚶 **Embodied transfer** | Transfers panoramic understanding to navigation settings such as R2R-CE Val-Unseen. |
 
-## Release TODO
+## Released Resources
 
-We are preparing the public release. Code, checkpoints, datasets, and benchmark files will be uploaded in stages.
+The PanoWorld models, data, and benchmark are available on Hugging Face under [wcccp](https://huggingface.co/wcccp).
 
-- [x] 📄 Paper
-- [ ] 📦 Code
-- [ ] 🗂️ Dataset
-- [ ] 🧪 Benchmark
-- [ ] 🧠 Checkpoints
+| Resource | Link | Description |
+| --- | --- | --- |
+| PanoWorld model | [wcccp/PanoWorld](https://huggingface.co/wcccp/PanoWorld) | Main PanoWorld checkpoint trained for pano-native spatial supersensing. |
+| PanoWorld-Hstar model | [wcccp/PanoWorld_Hstar](https://huggingface.co/wcccp/PanoWorld_Hstar) | PanoWorld checkpoint fine-tuned on the H* / Thinking-in-360 setting. |
+| PanoWorld data | [wcccp/Pano_dataset](https://huggingface.co/datasets/wcccp/Pano_dataset) | Released training data for PanoWorld. |
+| PanoSpace-Bench | [wcccp/PanoSpace-Bench](https://huggingface.co/datasets/wcccp/PanoSpace-Bench) | Benchmark for ERP-native spatial localization, 3D reasoning, seam continuity, BFOV grounding, and reorientation. |
+
+## Code Usage
+
+This repository provides the code used to build data, train models, and run the PanoWorld release.
+
+| Directory | Purpose |
+| --- | --- |
+| [`depth_estimation/`](./depth_estimation) | Generates pseudo-depth maps for panorama images. |
+| [`base_data_generation/`](./base_data_generation) | Generates ERP metadata used by PanoWorld, including object-level annotations and spatial fields. |
+| [`train_copy/`](./train_copy) | Trains the main PanoWorld model. |
+| [`train_copy_hstar/`](./train_copy_hstar) | Fine-tunes PanoWorld on the H* / Thinking-in-360 dataset. |
 
 ## Visual Examples
 
@@ -71,8 +84,8 @@ We are preparing the public release. Code, checkpoints, datasets, and benchmark 
 
 ## News
 
+- **2026-05**: Code, PanoWorld checkpoints, released data, and PanoSpace-Bench are available.
 - **2026-05**: Project page, arXiv PDF, and Hugging Face paper page are available.
-- **Coming soon**: Code, checkpoints, dataset, and benchmark release.
 
 ## Citation
 
