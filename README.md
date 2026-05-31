@@ -2,8 +2,6 @@
 
 # PanoWorld: Towards Spatial Supersensing in 360° Panorama World
 
-**Pano-native multimodal learning for full-surround 360° spatial reasoning, holistic sensing, and panoramic navigation.**
-
 <p>
 Changpeng Wang<sup>1</sup>, Xin Lin<sup>2</sup>, Junhan Liu<sup>1</sup>, Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>, Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
 </p>
