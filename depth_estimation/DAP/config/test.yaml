@@ -1,0 +1,71 @@
+test_dataset_1:
+  name: stanford2d3d
+  root_path: /home/tione/notebook/home/wenxuan/PanDA/data/stanford2d3d
+  list_path: datasets/stanford2d3d_test.txt
+  args:
+    height: 512
+    width: 1024
+    repeat: 1
+    augment_color: False
+    augment_flip: False
+    augment_rotation: False
+  batch_size: 32
+  num_workers: 64
+
+# test_dataset_1:
+#   name: insta23k
+#   root_path: /home/tione/notebook/nfs/MLUAV_Data
+#   list_path: datasets/instadata_list_test.txt
+#   args:
+#     height: 512
+#     width: 1024
+#     repeat: 1
+#     augment_color: False
+#     augment_flip: False
+#     augment_rotation: False
+#   batch_size: 32
+#   num_workers: 64
+
+# test_dataset_1:
+#   name: deep360
+#   root_path: /home/tione/notebook/home/wenxuan/PanDA/data/Deep360
+#   list_path: datasets/deep360_test_final.txt
+#   args:
+#     height: 512
+#     width: 1024
+#     repeat: 1
+#     augment_color: False
+#     augment_flip: False
+#     augment_rotation: False
+#   batch_size: 32
+#   num_workers: 24
+
+# test_dataset_1:
+#   name: m3d
+#   root_path: /home/tione/notebook/home/wenxuan/PanDA/data/M3D
+#   list_path: datasets/m3d_test.txt
+#   args:
+#     height: 512
+#     width: 1024
+#     repeat: 1
+#     augment_color: False
+#     augment_flip: False
+#     augment_rotation: False
+#   batch_size: 32
+#   num_workers: 24
+
+
+model:
+  name: dap
+  args:
+    midas_model_type: vitl
+    fine_tune_type:
+    min_depth: 0.001
+    max_depth: 1.0
+    train_decoder: True
+
+median_align: False
+
+
+
+load_weights_dir: /home/tione/notebook/home/songmeixi_insta360.com/depth/panda_orgindual/ckpt_save/1111/trainw1_2_dualw1_2/weights_0

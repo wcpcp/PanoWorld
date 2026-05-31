@@ -1,0 +1,110 @@
+model:
+  name_or_path: "/path/to/panoworld_or_qwen3.5_checkpoint"
+  trust_remote_code: false
+  torch_dtype: "bfloat16"
+  attn_implementation: "flash_attention_2"
+  cache_dir: null
+  image_token: "<image>"
+  model_max_length: 163840
+  trainable_modules:
+    all: true
+    # language_model: true
+    # visual_merger: true
+    # visual: true   # This also enables the visual merger.
+
+data:
+  train_jsonl: "/path/to/thinking_in_360_train_multimodal_blocks.json"
+  eval_jsonl: "/path/to/thinking_in_360_bench_multimodal_blocks.json"
+  system_prompt_path: null
+  image_root: null
+
+  train_max_samples: null
+  eval_max_samples: null
+  shuffle: true
+  eval_shuffle: false
+  prompt_format: "chat_template"
+  system_prompt: null
+  auto_insert_media_placeholders: true
+  strict_image_checks: true
+  skip_missing_images: true
+  eval_method: "generation"
+  eval_metric: "thinking360_success_rate"
+  eval_use_generation: true
+  eval_disable_thinking: true
+  eval_print_predictions: true
+  eval_generation_max_new_tokens: 512
+  eval_generation_do_sample: false
+  eval_generation_num_beams: 1
+
+  image_processor:
+    min_pixels: 16384
+    max_pixels: 2097160
+    size:
+      shortest_edge: 16384
+      longest_edge: 2097160
+
+erp:
+  enabled: true
+  pos_mode: "paper"
+  stage: "patch"
+  target: "pooler"
+  # adapter_type: "additive"
+  adapter_type: "da2_cross_attn"
+  cross_attn_embed_type: "fourier"
+  hidden_dim: 512
+  num_heads: 8
+  gate_init: 0.01
+  use_layernorm: true
+
+training:
+  output_dir: "outputs/pano_qwen3_5_hstar_cross_attn"
+  seed: 42
+
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+
+  learning_rate: 1.0e-6
+  weight_decay: 0.01
+  warmup_steps: 0.03
+  lr_scheduler_type: "cosine"
+  optim: "adamw_torch"
+
+  num_train_epochs: 1
+  fp16: false
+  bf16: true
+
+  logging_steps: 5
+  save_steps: 25
+  max_steps: -1
+  save_strategy: "steps"
+  max_shard_size: "5GB"
+  save_total_limit: 2
+  report_to: ["wandb"]
+  run_name: "pano_qwen3.5_9b_hstar_patch_cross_attn"
+
+  per_device_eval_batch_size: 8
+  eval_steps: 25
+  eval_strategy: "steps"
+  load_best_model_at_end: true
+  metric_for_best_model: "thinking360_success_rate"
+  greater_is_better: true
+
+  remove_unused_columns: false
+  dataloader_num_workers: 8
+  gradient_checkpointing: true
+  max_grad_norm: 1.0
+  deepspeed: "deepspeed/zero3.json"
+
+run:
+  do_eval: true
+  resume_from_checkpoint: false
+  eval_before_train: false
+
+wandb:
+  project: "pano"
+  entity: null
+  name: "pano_qwen3.5_9b_hstar_patch_cross_attn"
+  tags: ["qwen3.5vl", "erp", "hstar", "thinking360"]
+  mode: "offline"
+  group: null
+  notes: "Hstar/Thinking-in-360 training with patch-stage DA2-style cross-attention ERP adapter"

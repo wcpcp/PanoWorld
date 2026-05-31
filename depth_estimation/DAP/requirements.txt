@@ -1,0 +1,15 @@
+gradio_imageslider
+gradio==4.36.0
+torch==2.7.1
+torchmetrics==1.8.2
+torchvision==0.22.1
+tornado==6.5.2
+opencv-python
+matplotlib
+huggingface_hub
+einops
+safetensors
+open3d
+tensorboardX
+mmengine
+pyexr

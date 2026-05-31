@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# macOS and editors
+.DS_Store
+*.swp
+*.swo
+
+# Environments
+.venv/
+venv/
+env/
+
+# Experiment outputs
+outputs/
+results/
+_smoke/
+tmp_json_smoke/
+wandb/
+logs/
+*.log
+
+# Model artifacts and large arrays
+/depth_estimation/models/
+/depth_estimation/DAP/checkpoints/
+/train_copy/models/
+/train_copy_hstar/models/
+checkpoints/
+*.pth
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.npy
+*.npz
+
+# Local backup/scratch files
+*.bak
+*.orig
+*.orig_*
+*.bak_*
+* copy.py

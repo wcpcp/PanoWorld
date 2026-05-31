@@ -1,0 +1,20 @@
+model:
+  name: dap
+  args:
+    midas_model_type: vitl
+    fine_tune_type: hypersim
+    min_depth: 0.01
+    max_depth: 1.0
+    train_decoder: True
+
+
+median_align: False
+load_weights_dir: /home/tione/notebook/home/songmeixi_insta360.com/depth/panda_orgindual/ckpt_save/1111/trainw1_2_dualw1_2/weights_0
+input:
+  height: 512
+  width: 1024
+inference:
+  batch_size: 1
+  num_workers: 1
+  save_colormap: True
+  colormap_type: jet

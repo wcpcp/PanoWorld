@@ -1,0 +1,3 @@
+../inputs/official_examples/hfdemo/01.jpg
+../inputs/official_examples/hfdemo/03.jpg
+../inputs/official_examples/hfdemo/generated_00.jpg

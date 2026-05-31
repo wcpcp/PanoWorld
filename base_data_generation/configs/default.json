@@ -1,0 +1,65 @@
+{
+  "dataset": {
+    "name": "RealSee",
+    "root": "/path/to/real_world_data"
+  },
+  "output_root": "./results",
+  "view_sampling": {
+    "ring": {
+      "enabled": true,
+      "tile_w": 800,
+      "overlap": 0.5,
+      "include_seam": true
+    },
+    "cubemap": {
+      "enabled": true,
+      "face_size": 768
+    }
+  },
+  "models": {
+    "wedetect": {
+      "weights": "/path/to/WeDetect/wedetect_large_uni.pth",
+      "backend": "internal_wedetect",
+      "device": "cuda",
+      "score_thre": 0.0,
+      "num_proposals": 300,
+      "num_prompts": 256,
+      "prompt_dim": 768,
+      "use_amp": false,
+      "command": "python /path/to/WeDetect/generate_proposal.py --wedetect_uni_checkpoint {weights} --image {image} --out_json {out_json} --score_thre 0.0",
+      "command_batch": "python /path/to/WeDetect/generate_proposal.py --wedetect_uni_checkpoint {weights} --image_list {image_list} --out_dir {out_dir} --score_thre 0.0 --batch_size {batch_size}"
+    },
+    "sam3": {
+      "model_dir": "/path/to/SAM3",
+      "backend": "external_command",
+      "command": "python /path/to/sam3_segment.py --model_dir {model_dir} --image {image} --boxes_json {boxes_json} --out_json {out_json}"
+    },
+    "qwen3_vl": {
+      "model_dir": "/path/to/Qwen3-VL-8B-Instruct",
+      "backend": "transformers",
+      "device": "cuda",
+      "dtype": "auto",
+      "batch_size": 8,
+      "max_new_tokens": 2048,
+      "base_url": "http://127.0.0.1:18908/v1",
+      "model_name": "Qwen3-VL-8B-Instruct",
+      "api_key": "EMPTY"
+    },
+    "semantic_vlm": {
+      "model_dir": "/path/to/Qwen3-VL-8B-Instruct",
+      "backend": "transformers",
+      "device": "cuda",
+      "dtype": "auto",
+      "batch_size": 8,
+      "max_new_tokens": 2048,
+      "base_url": "http://127.0.0.1:18908/v1",
+      "model_name": "Qwen3-VL-8B-Instruct",
+      "api_key": "EMPTY"
+    },
+    "wedetect_ref": {
+      "script": "/path/to/WeDetect/infer_wedetect_ref.py",
+      "wedetect_ref_checkpoint": "/path/to/WeDetect/ref",
+      "wedetect_uni_checkpoint": "/path/to/WeDetect/wedetect_large_uni.pth"
+    }
+  }
+}

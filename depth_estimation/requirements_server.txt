@@ -1,0 +1,17 @@
+torch==2.7.1
+torchvision==0.22.1
+opencv-python
+matplotlib
+einops
+mmengine
+PyYAML
+tqdm
+pillow
+torchmetrics==1.8.2
+scipy
+submitit
+ftfy
+regex
+omegaconf
+pandas
+huggingface_hub
