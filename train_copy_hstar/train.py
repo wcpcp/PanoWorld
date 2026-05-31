@@ -38,9 +38,16 @@ def _resolve_eval_method(cfg) -> str:
 def _validate_required_paths(cfg):
     required_paths = {
         "model.name_or_path": cfg.model.name_or_path,
-        "data.train_jsonl": cfg.data.train_jsonl,
     }
-    if cfg.run.do_eval and cfg.data.eval_jsonl:
+    do_train = bool(getattr(cfg.run, "do_train", True))
+    do_eval = bool(getattr(cfg.run, "do_eval", False))
+    if not do_train and not do_eval:
+        raise ValueError("At least one of `run.do_train` or `run.do_eval` must be true.")
+    if do_train:
+        required_paths["data.train_jsonl"] = cfg.data.train_jsonl
+    if do_eval:
+        if not cfg.data.eval_jsonl:
+            raise ValueError("`data.eval_jsonl` is required when `run.do_eval` is true.")
         required_paths["data.eval_jsonl"] = cfg.data.eval_jsonl
     if cfg.training.deepspeed:
         required_paths["training.deepspeed"] = cfg.training.deepspeed
@@ -215,12 +222,14 @@ def main():
     set_seed(cfg.training.seed)
 
     processor, tokenizer = load_processor_and_tokenizer(cfg)
-    train_dataset = _build_dataset(cfg, processor, tokenizer, split="train")
-    if train_dataset is None:
+    do_train = bool(getattr(cfg.run, "do_train", True))
+    do_eval = bool(getattr(cfg.run, "do_eval", False))
+    train_dataset = _build_dataset(cfg, processor, tokenizer, split="train") if do_train else None
+    if do_train and train_dataset is None:
         raise ValueError("`data.train_jsonl` 不能为空。")
-    eval_dataset = _build_dataset(cfg, processor, tokenizer, split="eval") if cfg.run.do_eval else None
+    eval_dataset = _build_dataset(cfg, processor, tokenizer, split="eval") if do_eval else None
 
-    load_best_model_at_end = bool(cfg.training.load_best_model_at_end and eval_dataset is not None)
+    load_best_model_at_end = bool(do_train and cfg.training.load_best_model_at_end and eval_dataset is not None)
     metric_for_best_model = cfg.training.metric_for_best_model if load_best_model_at_end else None
     eval_items = getattr(eval_dataset, "items", []) if eval_dataset is not None else []
     is_choice_eval = any(
@@ -241,8 +250,15 @@ def main():
     greater_is_better = cfg.training.greater_is_better if load_best_model_at_end else None
     warmup_steps, warmup_ratio = _resolve_warmup_args(cfg.training.warmup_steps)
 
+    if not do_train:
+        cfg.training.gradient_checkpointing = False
+
     model = load_model(cfg)
-    set_model(cfg, model)
+    if do_train:
+        set_model(cfg, model)
+    else:
+        for param in model.parameters():
+            param.requires_grad = False
 
     training_args = TrainingArguments(
         output_dir=cfg.training.output_dir,
@@ -257,7 +273,7 @@ def main():
         save_steps=cfg.training.save_steps,
         eval_steps=cfg.training.eval_steps,
         max_steps=cfg.training.max_steps,
-        eval_strategy=cfg.training.eval_strategy if eval_dataset is not None else "no",
+        eval_strategy=cfg.training.eval_strategy if do_train and eval_dataset is not None else "no",
         save_strategy=cfg.training.save_strategy,
         load_best_model_at_end=load_best_model_at_end,
         metric_for_best_model=metric_for_best_model,
@@ -324,14 +340,27 @@ def main():
 
     eval_before_train = bool(getattr(cfg.run, "eval_before_train", False))
 
-    if eval_before_train:
+    if eval_before_train or (not do_train and eval_dataset is not None):
         if eval_dataset is None:
             rank0_print(RANK, "skip initial eval: eval_before_train=True but eval_dataset is None")
         else:
-            rank0_print(RANK, "running initial evaluation before training...")
+            eval_label = "evaluation" if not do_train else "initial evaluation before training"
+            rank0_print(RANK, f"running {eval_label}...")
             initial_metrics = trainer.evaluate()
             if RANK == 0:
-                rank0_print(RANK, f"initial eval metrics: {initial_metrics}")
+                rank0_print(RANK, f"eval metrics: {initial_metrics}")
+
+    if not do_train:
+        if RANK == 0:
+            rank0_print(RANK, "run.do_train is false; finished evaluation without training.")
+        report_to = cfg.training.report_to or []
+        if isinstance(report_to, str):
+            report_to = [report_to]
+        if "wandb" in report_to:
+            import wandb
+
+            wandb.finish()
+        return
 
     rank0_print(RANK, "calling trainer.train()")
 

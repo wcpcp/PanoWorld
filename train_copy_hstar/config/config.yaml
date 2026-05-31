@@ -96,6 +96,7 @@ training:
   deepspeed: "deepspeed/zero3.json"
 
 run:
+  do_train: true
   do_eval: true
   resume_from_checkpoint: false
   eval_before_train: false

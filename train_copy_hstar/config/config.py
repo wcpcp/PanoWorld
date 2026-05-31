@@ -106,6 +106,7 @@ class WandbConfig:
 
 @dataclass
 class RunConfig:
+    do_train: bool = True
     do_eval: bool = False
     resume_from_checkpoint: Optional[Any] = None
     eval_before_train: bool = False

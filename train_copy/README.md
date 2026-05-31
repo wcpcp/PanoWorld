@@ -108,6 +108,7 @@ Before running, update these fields in `config/config.yaml`:
 - `data.system_prompt_path`: optional system prompt file.
 - `training.output_dir`: checkpoint output directory.
 - `training.deepspeed`: DeepSpeed config path.
+- `run.do_train`: set to `false` for benchmark inference/evaluation only.
 - `wandb.mode`: set to `online`, `offline`, or `disabled` as needed.
 
 The committed configuration is an example and contains environment-specific paths. Treat it as a template.
@@ -123,6 +124,31 @@ pip install -r requirements.txt
 ```
 
 This environment is also suitable for `train_copy_hstar/`. If your CUDA driver or PyTorch build differs from the pinned package set, install a compatible PyTorch/FlashAttention stack first, then install the remaining Python packages from `requirements.txt`.
+
+## Run Benchmark Inference / Evaluation
+
+To evaluate a released PanoWorld checkpoint on PanoSpace-Bench, set the benchmark file and image root in `config/config.yaml`, then disable training:
+
+```yaml
+model:
+  name_or_path: "/path/to/checkpoints/PanoWorld"
+data:
+  eval_jsonl: "/path/to/PanoSpace-Bench/benchmark.jsonl"
+  image_root: "/path/to/panorama/images"
+  eval_method: "generation"
+  eval_metric: "choice_accuracy"
+run:
+  do_train: false
+  do_eval: true
+```
+
+Launch with the same script used for training:
+
+```bash
+GPU_DEVICES=0 GPU_NUM=1 CONFIG_PATH=config/config.yaml bash train.sh
+```
+
+`data.train_jsonl` should remain present in the YAML template, but it is not loaded when `run.do_train: false`.
 
 ## Run Training
 

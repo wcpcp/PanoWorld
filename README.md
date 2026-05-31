@@ -4,10 +4,21 @@
 
 **Pano-native multimodal learning for full-surround 360° spatial reasoning, holistic sensing, and panoramic navigation.**
 
+<p>
+Changpeng Wang<sup>1</sup>, Xin Lin<sup>2</sup>, Junhan Liu<sup>1</sup>, Yuheng Liu<sup>3</sup>, Zhen Wang<sup>1</sup>, Donglian Qi<sup>1</sup>, Yunfeng Yan<sup>1</sup>, Xi Chen<sup>4</sup>
+</p>
+
+<p>
+<sup>1</sup>Zhejiang University &nbsp;&nbsp;
+<sup>2</sup>University of California San Diego &nbsp;&nbsp;
+<sup>3</sup>University of California Irvine &nbsp;&nbsp;
+<sup>4</sup>The University of Hong Kong
+</p>
+
 [![Project Page](https://img.shields.io/badge/Project-Page-2d776f?style=for-the-badge&logo=githubpages&logoColor=white)](https://wcpcp.github.io/PanoWorld/)
 [![arXiv](https://img.shields.io/badge/arXiv-2605.13169-b31b1b?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/pdf/2605.13169)
 [![HF Paper](https://img.shields.io/badge/HuggingFace-Paper-ffcc4d?style=for-the-badge&logo=huggingface&logoColor=111)](https://huggingface.co/papers/2605.13169)
-[![Models](https://img.shields.io/badge/Models-HuggingFace-ffcc4d?style=for-the-badge&logo=huggingface&logoColor=111)](https://huggingface.co/wcccp)
+[![Models](https://img.shields.io/badge/Models-HuggingFace-ffcc4d?style=for-the-badge&logo=huggingface&logoColor=111)](https://huggingface.co/wcccp/PanoWorld)
 [![Dataset](https://img.shields.io/badge/Dataset-Released-2d776f?style=for-the-badge)](https://huggingface.co/datasets/wcccp/Pano_dataset)
 [![Benchmark](https://img.shields.io/badge/Benchmark-Released-2d776f?style=for-the-badge)](https://huggingface.co/datasets/wcccp/PanoSpace-Bench)
 
@@ -58,22 +69,20 @@ The released data covers **570K panorama records with corresponding metadata**. 
 
 We also release **1M training data pairs** for training PanoWorld.
 
-## Code Usage
+## Repository Structure
 
 This repository provides the code used to build data, train models, and run the PanoWorld release.
 
 | Directory | Purpose |
 | --- | --- |
-| [`depth_estimation/`](./depth_estimation) | Generates pseudo-depth maps for panorama images. |
-| [`base_data_generation/`](./base_data_generation) | Generates ERP metadata used by PanoWorld, including object-level annotations and spatial fields. |
-| [`train_copy/`](./train_copy) | Trains the main PanoWorld model. |
-| [`train_copy_hstar/`](./train_copy_hstar) | Fine-tunes PanoWorld on the H* / Thinking-in-360 dataset. |
+| [`depth_estimation/`](./depth_estimation) | Generates pseudo-depth maps for panorama images when metric depth is unavailable. |
+| [`base_data_generation/`](./base_data_generation) | Builds PanoWorld metadata, including ERP view sampling, object detection, semantic enrichment, re-grounding, spatial fields, relation construction, and QA export. |
+| [`train_copy/`](./train_copy) | Trains the main PanoWorld model and runs PanoSpace-Bench generation inference/evaluation. |
+| [`train_copy_hstar/`](./train_copy_hstar) | Fine-tunes PanoWorld on the H* / Thinking-in-360 setting. |
 
 ## Environment Setup
 
-Metadata generation uses WeDetect / WeDetect-Ref for open-vocabulary detection and local re-grounding. Please build the WeDetect environment following [WeChatCV/WeDetect](https://github.com/WeChatCV/WeDetect), then update detector and checkpoint paths in [`base_data_generation/configs/default.json`](./base_data_generation/configs/default.json).
-
-For PanoWorld training and H* fine-tuning, use the environment files in [`train_copy/`](./train_copy):
+For PanoWorld training, benchmark inference, and H* fine-tuning, use the environment files in [`train_copy/`](./train_copy):
 
 ```bash
 cd train_copy
@@ -84,14 +93,135 @@ pip install -r requirements.txt
 
 The same training environment is used by `train_copy/` and `train_copy_hstar/`. If your CUDA or PyTorch stack differs from the pinned requirements, install a compatible PyTorch/FlashAttention build first, then install the remaining packages from `requirements.txt`.
 
-## Workflow
+Metadata generation additionally uses WeDetect / WeDetect-Ref for open-vocabulary detection and local re-grounding. Please build the WeDetect environment following [WeChatCV/WeDetect](https://github.com/WeChatCV/WeDetect), then update detector, checkpoint, VLM, and data paths in [`base_data_generation/configs/default.json`](./base_data_generation/configs/default.json).
 
-At a high level, the release pipeline is:
+Pseudo-depth generation has its own lightweight inference environment under [`depth_estimation/`](./depth_estimation). See [`depth_estimation/README.md`](./depth_estimation/README.md) for the DAP checkpoint path and batch inference commands.
 
-1. Use [`depth_estimation/`](./depth_estimation) to generate pseudo-depth for panorama images when depth is unavailable.
-2. Use [`base_data_generation/`](./base_data_generation) to scan panoramas, build views, run WeDetect/WeDetect-Ref, enrich semantics, attach depth/spatial metadata, and export metadata or QA data.
-3. Use [`train_copy/`](./train_copy) to train the main PanoWorld model with the released 1M training pairs.
-4. Use [`train_copy_hstar/`](./train_copy_hstar) to fine-tune on the H* / Thinking-in-360 data.
+## Usage and Reproduction
+
+Most paths in the committed config files are placeholders from the original experiment environment. Before running, replace model, data, image, and output paths with paths on your machine.
+
+### 1. Download Released Resources
+
+The released checkpoints, data, and benchmark are hosted on Hugging Face:
+
+```bash
+pip install -U huggingface_hub
+
+huggingface-cli download wcccp/PanoWorld \
+  --local-dir checkpoints/PanoWorld
+
+huggingface-cli download --repo-type dataset wcccp/PanoSpace-Bench \
+  --local-dir data/PanoSpace-Bench
+
+huggingface-cli download --repo-type dataset wcccp/Pano_dataset \
+  --local-dir data/Pano_dataset
+```
+
+The dataset release contains 570K panorama records with metadata. We directly release all outdoor panorama data. For the 290K RealSee3D panoramas referenced by the metadata, please apply for and download the original images from [realsee-developer/RealSee3D](https://github.com/realsee-developer/RealSee3D), then pair them with the released metadata. The release also includes 1M training data pairs for reproducing PanoWorld training.
+
+### 2. Run PanoSpace-Bench Inference
+
+Use [`train_copy/`](./train_copy) for benchmark inference with the released PanoWorld checkpoint. Edit [`train_copy/config/config.yaml`](./train_copy/config/config.yaml):
+
+```yaml
+model:
+  name_or_path: "/path/to/checkpoints/PanoWorld"
+
+data:
+  train_jsonl: "/path/to/unused_when_eval_only.jsonl"
+  eval_jsonl: "/path/to/data/PanoSpace-Bench/benchmark.jsonl"
+  image_root: "/path/to/panorama/images"
+  eval_method: "generation"
+  eval_metric: "choice_accuracy"
+  eval_print_predictions: true
+
+training:
+  output_dir: "outputs/panoworld_benchmark_eval"
+
+run:
+  do_train: false
+  do_eval: true
+```
+
+Then launch from `train_copy/`:
+
+```bash
+cd train_copy
+GPU_DEVICES=0 GPU_NUM=1 CONFIG_PATH=config/config.yaml bash train.sh
+```
+
+The same launcher is used for training and inference; `run.do_train: false` switches the script into evaluation-only mode. Predictions and metrics are printed during generation evaluation and are also written to `training.output_dir/train.log`.
+
+### 3. Train PanoWorld
+
+To reproduce main PanoWorld training, point [`train_copy/config/config.yaml`](./train_copy/config/config.yaml) to a Qwen3.5-VL base model and the released training pairs:
+
+```yaml
+model:
+  name_or_path: "/path/to/qwen3.5-vl-base"
+
+data:
+  train_jsonl: "/path/to/data/Pano_dataset/train_1m.jsonl"
+  eval_jsonl: "/path/to/data/PanoSpace-Bench/benchmark.jsonl"
+  image_root: "/path/to/panorama/images"
+
+training:
+  output_dir: "outputs/panoworld_train"
+  deepspeed: "deepspeed/zero3.json"
+
+run:
+  do_train: true
+  do_eval: true
+```
+
+Run the training launcher:
+
+```bash
+cd train_copy
+GPU_DEVICES=0,1,2,3 GPU_NUM=4 CONFIG_PATH=config/config.yaml bash train.sh
+```
+
+Adjust `per_device_train_batch_size`, `gradient_accumulation_steps`, `image_processor.max_pixels`, and the DeepSpeed stage according to GPU memory. The default trainer performs full fine-tuning with the ERP spherical geometry adapter enabled.
+
+### 4. Fine-tune on H* / Thinking-in-360
+
+Use [`train_copy_hstar/`](./train_copy_hstar) for the H* / Thinking-in-360 variant. Set the base checkpoint to either the released PanoWorld model or a checkpoint produced by step 3, then update the H* train/eval files:
+
+```yaml
+model:
+  name_or_path: "/path/to/checkpoints/PanoWorld"
+
+data:
+  train_jsonl: "/path/to/thinking_in_360_train.json"
+  eval_jsonl: "/path/to/thinking_in_360_bench.json"
+
+run:
+  do_train: true
+  do_eval: true
+```
+
+Launch:
+
+```bash
+cd train_copy_hstar
+GPU_DEVICES=0,1 GPU_NUM=2 CONFIG_PATH=config/config.yaml bash train.sh
+```
+
+### 5. Build Metadata or Pseudo-depth
+
+If you want to rebuild data rather than use the released metadata, first run [`depth_estimation/`](./depth_estimation) to attach pseudo-depth maps when depth is missing. Then use [`base_data_generation/`](./base_data_generation) to scan panoramas, create perspective views, run WeDetect/WeDetect-Ref, merge ERP objects, enrich semantics, build relations, and export metadata or SFT QA files.
+
+For example, metadata generation starts from:
+
+```bash
+cd base_data_generation
+python scripts/00_scan_realsee.py --erp_json /path/to/image_manifest.json --out results/00_scan_output.json
+python scripts/01_make_views.py --scan_json results/00_scan_output.json --out_dir results/01_make_views_output
+python scripts/02_detect.py --cfg configs/default.json --index_views results/01_make_views_output/index_views.json --out_dir results/02_detect_output
+```
+
+See [`base_data_generation/README.md`](./base_data_generation/README.md) for the full step-by-step metadata pipeline.
 
 ## Visual Examples
 

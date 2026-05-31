@@ -88,6 +88,7 @@ Update `config/config.yaml` before running:
 - `data.eval_jsonl`: benchmark file.
 - `training.output_dir`: checkpoint output directory.
 - `training.save_steps` and `training.eval_steps`: validation/checkpoint cadence.
+- `run.do_train`: set to `false` for generation evaluation only.
 - `wandb.mode`: `online`, `offline`, or `disabled`.
 
 The committed paths are examples from the original experiment environment and should be replaced for a new machine.
@@ -104,6 +105,26 @@ pip install -r requirements.txt
 ```
 
 Then return to `train_copy_hstar/` for H* / Thinking-in-360 fine-tuning.
+
+## Run Evaluation Only
+
+To run generation evaluation on an H* / Thinking-in-360 benchmark without further fine-tuning, set:
+
+```yaml
+model:
+  name_or_path: "/path/to/checkpoints/PanoWorld"
+data:
+  eval_jsonl: "/path/to/thinking_in_360_bench.json"
+run:
+  do_train: false
+  do_eval: true
+```
+
+Then launch:
+
+```bash
+GPU_DEVICES=0 GPU_NUM=1 CONFIG_PATH=config/config.yaml bash train.sh
+```
 
 ## Run Training
 
