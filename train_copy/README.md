@@ -112,6 +112,18 @@ Before running, update these fields in `config/config.yaml`:
 
 The committed configuration is an example and contains environment-specific paths. Treat it as a template.
 
+## Environment
+
+Create the training environment from the provided files:
+
+```bash
+conda env create -f environment.yml
+conda activate vln
+pip install -r requirements.txt
+```
+
+This environment is also suitable for `train_copy_hstar/`. If your CUDA driver or PyTorch build differs from the pinned package set, install a compatible PyTorch/FlashAttention stack first, then install the remaining Python packages from `requirements.txt`.
+
 ## Run Training
 
 From `train_copy/`:

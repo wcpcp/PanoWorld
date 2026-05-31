@@ -92,6 +92,19 @@ Update `config/config.yaml` before running:
 
 The committed paths are examples from the original experiment environment and should be replaced for a new machine.
 
+## Environment
+
+Use the same training environment as `train_copy/`:
+
+```bash
+cd ../train_copy
+conda env create -f environment.yml
+conda activate vln
+pip install -r requirements.txt
+```
+
+Then return to `train_copy_hstar/` for H* / Thinking-in-360 fine-tuning.
+
 ## Run Training
 
 From `train_copy_hstar/`:

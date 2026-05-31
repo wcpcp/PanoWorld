@@ -43,6 +43,21 @@ The PanoWorld models, data, and benchmark are available on Hugging Face under [w
 | PanoWorld data | [wcccp/Pano_dataset](https://huggingface.co/datasets/wcccp/Pano_dataset) | Released training data for PanoWorld. |
 | PanoSpace-Bench | [wcccp/PanoSpace-Bench](https://huggingface.co/datasets/wcccp/PanoSpace-Bench) | Benchmark for ERP-native spatial localization, 3D reasoning, seam continuity, BFOV grounding, and reorientation. |
 
+## Release Status
+
+- [x] Paper and project page
+- [x] Code release
+- [x] PanoWorld and PanoWorld-Hstar checkpoints
+- [x] PanoWorld data release
+- [x] PanoSpace-Bench release
+- [ ] VLN transfer code and artifacts: coming soon
+
+## Data Release Details
+
+The released data covers **570K panorama records with corresponding metadata**. We directly release all outdoor panorama data. For the **290K RealSee3D panorama images** referenced by the metadata, please apply for and download the original panoramas from [realsee-developer/RealSee3D](https://github.com/realsee-developer/RealSee3D), then pair them with the released metadata.
+
+We also release **1M training data pairs** for training PanoWorld.
+
 ## Code Usage
 
 This repository provides the code used to build data, train models, and run the PanoWorld release.
@@ -53,6 +68,30 @@ This repository provides the code used to build data, train models, and run the 
 | [`base_data_generation/`](./base_data_generation) | Generates ERP metadata used by PanoWorld, including object-level annotations and spatial fields. |
 | [`train_copy/`](./train_copy) | Trains the main PanoWorld model. |
 | [`train_copy_hstar/`](./train_copy_hstar) | Fine-tunes PanoWorld on the H* / Thinking-in-360 dataset. |
+
+## Environment Setup
+
+Metadata generation uses WeDetect / WeDetect-Ref for open-vocabulary detection and local re-grounding. Please build the WeDetect environment following [WeChatCV/WeDetect](https://github.com/WeChatCV/WeDetect), then update detector and checkpoint paths in [`base_data_generation/configs/default.json`](./base_data_generation/configs/default.json).
+
+For PanoWorld training and H* fine-tuning, use the environment files in [`train_copy/`](./train_copy):
+
+```bash
+cd train_copy
+conda env create -f environment.yml
+conda activate vln
+pip install -r requirements.txt
+```
+
+The same training environment is used by `train_copy/` and `train_copy_hstar/`. If your CUDA or PyTorch stack differs from the pinned requirements, install a compatible PyTorch/FlashAttention build first, then install the remaining packages from `requirements.txt`.
+
+## Workflow
+
+At a high level, the release pipeline is:
+
+1. Use [`depth_estimation/`](./depth_estimation) to generate pseudo-depth for panorama images when depth is unavailable.
+2. Use [`base_data_generation/`](./base_data_generation) to scan panoramas, build views, run WeDetect/WeDetect-Ref, enrich semantics, attach depth/spatial metadata, and export metadata or QA data.
+3. Use [`train_copy/`](./train_copy) to train the main PanoWorld model with the released 1M training pairs.
+4. Use [`train_copy_hstar/`](./train_copy_hstar) to fine-tune on the H* / Thinking-in-360 data.
 
 ## Visual Examples
 
